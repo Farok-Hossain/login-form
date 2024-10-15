@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { LoadCanvasTemplate, loadCaptchaEnginge } from "react-simple-captcha";
 
 const Login = () => {
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -16,9 +22,6 @@ const Login = () => {
           <h1 className="text-5xl font-bold text-green-600">
             Login now<span className="text-pink-600">!</span>
           </h1>
-          <p className="py-6">
-            click here and please order some super delicious food
-          </p>
         </div>
         <div className="card md:w-full shadow-2xl bg-base-100">
           <form onSubmit={handleLogin} className="card-body">
@@ -51,6 +54,20 @@ const Login = () => {
                 </a>
               </label>
             </div>
+
+            {/* captcha validate */}
+            <div className="form-control">
+              <label className="label">
+                <LoadCanvasTemplate />
+              </label>
+              <input
+                type="text"
+                placeholder="type the captcha above"
+                name="captcha"
+                className="input input-bordered"
+              />
+            </div>
+
             <div className="form-control mt-6">
               {/* TODO: apply disabled for re captcha */}
               <input className="btn btn-primary" type="submit" value="Login" />
