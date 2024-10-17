@@ -1,9 +1,18 @@
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { LoadCanvasTemplate, loadCaptchaEnginge } from "react-simple-captcha";
+import {
+  LoadCanvasTemplate,
+  loadCaptchaEnginge,
+  validateCaptcha,
+} from "react-simple-captcha";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
+  const [disabled, setDisabled] = useState(true);
+
+  const { singInUser } = useContext(AuthContext);
+
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
@@ -14,7 +23,21 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
+    singInUser(email, password).then((result) => {
+      const users = result.user;
+      console.log(users);
+    });
   };
+
+  const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
+    if (validateCaptcha(user_captcha_value) === true) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
+
   return (
     <div className="hero min-h-screen bg-base-300">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -61,6 +84,7 @@ const Login = () => {
                 <LoadCanvasTemplate />
               </label>
               <input
+                onBlur={handleValidateCaptcha}
                 type="text"
                 placeholder="type the captcha above"
                 name="captcha"
@@ -70,7 +94,12 @@ const Login = () => {
 
             <div className="form-control mt-6">
               {/* TODO: apply disabled for re captcha */}
-              <input className="btn btn-primary" type="submit" value="Login" />
+              <input
+                disabled={disabled}
+                className="btn btn-primary"
+                type="submit"
+                value="Login"
+              />
             </div>
           </form>
           <p className=" px-6">
