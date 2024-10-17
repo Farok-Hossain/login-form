@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LoadCanvasTemplate,
   loadCaptchaEnginge,
@@ -11,8 +11,12 @@ import Swal from "sweetalert2";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
+  const { signInUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const { singInUser } = useContext(AuthContext);
+  const from = location.state?.from?.pathname || "/";
+  console.log("state in the location login page", location.state);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -24,7 +28,7 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    singInUser(email, password).then((result) => {
+    signInUser(email, password).then((result) => {
       const users = result.user;
       console.log(users);
       Swal.fire({
@@ -44,12 +48,13 @@ const Login = () => {
           `,
         },
       });
+      navigate(from, { replace: true });
     });
   };
 
   const handleValidateCaptcha = (e) => {
     const user_captcha_value = e.target.value;
-    if (validateCaptcha(user_captcha_value)) {
+    if (validateCaptcha(user_captcha_value) == true) {
       setDisabled(false);
     } else {
       setDisabled(true);
