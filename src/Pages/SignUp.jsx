@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const {
@@ -122,6 +123,11 @@ const SignUp = () => {
               />
             </div>
           </form>
+          <p>
+            <small>
+              Already have an account <Link to="/login">login</Link>
+            </small>
+          </p>
         </div>
       </div>
     </div>

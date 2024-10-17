@@ -7,6 +7,7 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -26,12 +27,29 @@ const Login = () => {
     singInUser(email, password).then((result) => {
       const users = result.user;
       console.log(users);
+      Swal.fire({
+        title: "User Login Successful.",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      });
     });
   };
 
   const handleValidateCaptcha = (e) => {
     const user_captcha_value = e.target.value;
-    if (validateCaptcha(user_captcha_value) === true) {
+    if (validateCaptcha(user_captcha_value)) {
       setDisabled(false);
     } else {
       setDisabled(true);
