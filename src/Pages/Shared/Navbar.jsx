@@ -19,7 +19,10 @@ const Navbar = () => {
         <Link to="/order">Order</Link>
         {user ? (
           <>
-            <button onClick={handleLogout} className="btn btn-ghost">
+            <button
+              onClick={handleLogout}
+              className="btn btn-ghost font-bold text-white text-xl uppercase mt-[-10px]"
+            >
               Logout
             </button>
           </>
