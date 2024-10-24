@@ -9,6 +9,7 @@ import Shop from "../Pages/Shop";
 import Order from "../Pages/Order";
 import PrivateRoute from "./PrivateRoute";
 import Secret from "../Pages/Shared/secret/Secret";
+import Category from "../Pages/Category";
 
 export const router = createBrowserRouter([
   {
@@ -24,9 +25,14 @@ export const router = createBrowserRouter([
         element: <Shop />,
       },
       {
+        path: "category",
+        element: <Category />,
+      },
+      {
         path: "order",
         element: <Order />,
       },
+
       {
         path: "login",
         element: <Login />,

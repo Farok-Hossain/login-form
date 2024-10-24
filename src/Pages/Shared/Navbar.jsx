@@ -16,6 +16,7 @@ const Navbar = () => {
       <div className="flex justify-center gap-10 font-bold text-white text-xl uppercase">
         <Link to="/">Home</Link>
         <Link to="/shop">Shop</Link>
+        <Link to="/category">Category</Link>
         <Link to="/order">Order</Link>
         {user ? (
           <>
