@@ -110,22 +110,27 @@ const SignUp = () => {
                 </a>
               </label>
             </div>
-            <div className="form-control mt-6">
+            <div className="form-control mt-6 ">
               {/* <button className="btn btn-primary">Login</button> */}
 
-              <input
-                // onClick={() => {
-                //   reset();
-                // }}
-                className="btn btn-primary"
-                type="submit"
-                value="Sign Up"
-              />
+              <Link to="/">
+                <input
+                  onClick={() => {
+                    reset();
+                  }}
+                  className="btn btn-primary w-80"
+                  type="submit"
+                  value="Sign Up"
+                />
+              </Link>
             </div>
           </form>
-          <p>
-            <small>
-              Already have an account <Link to="/login">login</Link>
+          <p className="mb-4">
+            <small className="pl-8 pb-8">
+              Already have an account{" "}
+              <Link to="/login" className="text-blue-700">
+                login
+              </Link>
             </small>
           </p>
         </div>
